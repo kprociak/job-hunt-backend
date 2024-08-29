@@ -70,6 +70,12 @@ class AuthController extends Controller
             ], 422);
         }
 
+        if (User::find($request->email)) {
+            return response()->json([
+                'message' => 'The provided user data is incorrect (email already exists).',
+            ], 422);
+        }
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -82,7 +88,7 @@ class AuthController extends Controller
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
+        ], 201);
     }
 
 }
