@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -17,9 +18,9 @@ class AuthController extends Controller
                 'password' => 'required',
             ]);
         }
-        catch (\Illuminate\Validation\ValidationException $e) {
+        catch (ValidationException $e) {
             return response()->json([
-                'message' => 'The provided credentials are incorrect (email or password missing).',
+                'error' => 'The provided credentials are incorrect (email or password missing).',
                 'errors' => $e->errors(),
             ], 422);
         }
@@ -28,13 +29,15 @@ class AuthController extends Controller
 
         if (! $user || ! \Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'The provided credentials are incorrect (user nt found).',
+                'error' => 'The provided credentials are incorrect (user nt found).',
             ], 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
@@ -63,7 +66,7 @@ class AuthController extends Controller
                 'password' => 'required|string|min:10',
             ]);
         }
-        catch (\Illuminate\Validation\ValidationException $e) {
+        catch (ValidationException $e) {
             return response()->json([
                 'message' => 'The provided user data is incorrect.',
                 'errors' => $e->errors(),

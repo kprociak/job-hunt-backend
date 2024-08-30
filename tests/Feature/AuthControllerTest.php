@@ -142,8 +142,4 @@ class AuthControllerTest extends TestCase
                 'token_type',
             ]);
     }
-
-
-
-
 }
