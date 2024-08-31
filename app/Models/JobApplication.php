@@ -9,4 +9,17 @@ class JobApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'company_name',
+        'job_title',
+        'offer_url',
+        'offer_salary_from',
+        'offer_salary_to',
+        'expected_salary_from',
+        'expected_salary_to',
+        'application_date',
+        'notes',
+        'status',
+    ];
+
 }

@@ -36,7 +36,7 @@ class JobApplicationController extends Controller
         }
 
         $user = $request->user();
-        $jobApplication = $user->jobApplications()->create($request->all());
+        $jobApplication = $user->jobApplications()->create(array_merge($request->all(), ['status' => 'new']));
 
         return response()->json([
             'jobApplication' => $jobApplication,
