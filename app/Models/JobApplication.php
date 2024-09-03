@@ -22,4 +22,14 @@ class JobApplication extends Model
         'status',
     ];
 
+    public function recruitmentEvents(): HasMany
+    {
+        return $this->hasMany(RecruitmentEvent::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
