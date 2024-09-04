@@ -14,10 +14,20 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         //
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.dev',
             'password' => \Hash::make('password1234'),
         ]);
+
+        $application = $user->jobApplications()->create([
+            'company_name' => 'Test Company',
+            'job_title' => 'Test Job',
+            'status' => 'new',
+            'application_date' => now(),
+        ]);
+
+
+
     }
 }
