@@ -28,8 +28,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('be_nullable', function (Blueprint $table) {
-            //
+        Schema::table('job_applications', function (Blueprint $table) {
+            $table->string('offer_url')->nullable(false)->change();
+            $table->string('notes')->nullable(false)->change();
+            $table->integer('offered_salary_from')->nullable(false)->change();
+            $table->integer('offered_salary_to')->nullable(false)->change();
+            $table->integer('expected_salary_from')->nullable(false)->change();
+            $table->integer('expected_salary_to')->nullable(false)->change();
         });
     }
 };

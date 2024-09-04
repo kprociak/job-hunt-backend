@@ -21,5 +21,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::rename('job_applications', 'job_application');
     }
 };
