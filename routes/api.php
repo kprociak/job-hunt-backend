@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\RecruitmentEventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -16,4 +17,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/job-applications', [JobApplicationController::class, 'store']);
     Route::put('/job-applications/{id}', [JobApplicationController::class, 'update']);
     Route::delete('/job-applications/{id}', [JobApplicationController::class, 'delete']);
+
+
+    Route::get('/recruitment-events', [RecruitmentEventController::class, 'index']);
+    Route::get('/job-applications/{jobApplicationId}/recruitment-events', [RecruitmentEventController::class, 'index']);
+    Route::post('/recruitment-events', [RecruitmentEventController::class, 'store']);
 });

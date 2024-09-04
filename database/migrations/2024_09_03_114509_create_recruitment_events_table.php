@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('job_application_id')->constrained();
-            $table->string('event_type');
-            $table->date('event_date');
-            $table->string('event_time');
-            $table->string('event_location');
-            $table->string('event_url');
-            $table->string('event_notes');
+            $table->string('type');
+            $table->date('date');
+            $table->string('time')->nullable();
+            $table->string('location')->nullable();
+            $table->string('url')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

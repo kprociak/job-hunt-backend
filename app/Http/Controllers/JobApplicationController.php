@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 class JobApplicationController extends Controller
 {
     //
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, ): JsonResponse
     {
         $user = $request->user();
         $jobApplications = $user->jobApplications()->get();
