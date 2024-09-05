@@ -25,7 +25,7 @@ class JobApplicationController extends Controller
             $request->validate([
                 'company_name' => 'required|string',
                 'job_title' => 'required|string',
-
+                'application_date' => 'required|date',
             ]);
         }
         catch (ValidationException $e) {

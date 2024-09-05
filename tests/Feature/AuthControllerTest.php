@@ -19,7 +19,7 @@ class AuthControllerTest extends TestCase
         $this->seed(TestSeeder::class);
     }
 
-    public function testLoginMethodReturnsErrorThenNoEmailProvided()
+    public function testLoginMethodReturnsErrorWhenNoEmailProvided()
     {
         $response = $this->postJson('/api/login', [
             'email' => '',
@@ -29,7 +29,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testLoginMethodReturnsErrorThenNoPasswordProvided()
+    public function testLoginMethodReturnsErrorWhenNoPasswordProvided()
     {
         $response = $this->postJson('/api/login', [
             'email' => 'test@test.com',
@@ -73,7 +73,7 @@ class AuthControllerTest extends TestCase
         ]);
     }
 
-    public function testRegisterMethodReturnsErrorThenNoNameProvided()
+    public function testRegisterMethodReturnsErrorWhenNoNameProvided()
     {
         $response = $this->postJson('/api/register', [
             'name' => '',
@@ -84,7 +84,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testRegisterMethodReturnsErrorThenNoEmailProvided()
+    public function testRegisterMethodReturnsErrorWhenNoEmailProvided()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Test User',
@@ -95,7 +95,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testRegisterMethodReturnsErrorThenNoPasswordProvided()
+    public function testRegisterMethodReturnsErrorWhenNoPasswordProvided()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Test User',
@@ -106,7 +106,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testRegisterMethodReturnsErrorThenEmailAlreadyExists()
+    public function testRegisterMethodReturnsErrorWhenEmailAlreadyExists()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Test User',
@@ -117,7 +117,7 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function testRegisterMethodReturnsErrorThenPasswordIsTooShort()
+    public function testRegisterMethodReturnsErrorWhenPasswordIsTooShort()
     {
         $response = $this->postJson('/api/register', [
             'name' => 'Test User',
@@ -167,7 +167,7 @@ class AuthControllerTest extends TestCase
         $logoutResponse->assertStatus(200);
     }
 
-    public function testMeMethodReturnsErrorForUnauthenticatedUser()
+    public function testMeMethodReturnsErrorForUnauthenticatedUser(): void
     {
         $response = $this->getJson('/api/me');
         $response->assertStatus(401);
