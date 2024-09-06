@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('recruitment_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('job_application_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('job_application_id')->constrained()->cascadeOnDelete();
             $table->string('type');
             $table->date('date');
             $table->string('time')->nullable();

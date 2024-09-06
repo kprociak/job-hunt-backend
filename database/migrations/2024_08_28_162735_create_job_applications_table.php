@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_application', function (Blueprint $table) {
+        Schema::create('job_applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('company_name');
             $table->string('job_title');
-            $table->string('offer_url');
-            $table->string('status');
+            $table->string('offer_url')->nullable();
+            $table->string('status')->default('new');
             $table->date('application_date');
-            $table->string('notes');
-            $table->integer('offered_salary_from');
-            $table->integer('offered_salary_to');
-            $table->integer('expected_salary_from');
-            $table->integer('expected_salary_to');
+            $table->string('notes')->nullable();
+            $table->integer('offered_salary_from')->nullable();
+            $table->integer('offered_salary_to')->nullable();
+            $table->integer('expected_salary_from')->nullable();
+            $table->integer('expected_salary_to')->nullable();
             $table->timestamps();
         });
     }
