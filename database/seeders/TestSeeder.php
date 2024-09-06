@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\RecruitmentEvent;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,6 +27,14 @@ class TestSeeder extends Seeder
             'status' => 'new',
             'application_date' => now(),
         ]);
+
+        $recruitmentEvent = new RecruitmentEvent([
+            'date' => now(),
+            'type' => 'Test Type',
+        ]);
+        $recruitmentEvent->jobApplication()->associate($application);
+        $recruitmentEvent->user()->associate($user);
+        $recruitmentEvent->save();
 
 
 

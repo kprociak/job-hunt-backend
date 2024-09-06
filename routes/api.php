@@ -22,4 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/recruitment-events', [RecruitmentEventController::class, 'index']);
     Route::get('/job-applications/{jobApplicationId}/recruitment-events', [RecruitmentEventController::class, 'index']);
     Route::post('/recruitment-events', [RecruitmentEventController::class, 'store']);
+    Route::put('/recruitment-events/{id}', [RecruitmentEventController::class, 'update']);
+    Route::delete('/recruitment-events/{id}', [RecruitmentEventController::class, 'delete']);
 });

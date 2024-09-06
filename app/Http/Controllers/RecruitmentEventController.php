@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 class RecruitmentEventController extends Controller
 {
     //
-    public function index(Request $request, int $jobApplicationId): JsonResponse
+    public function index(Request $request, int $jobApplicationId = 0): JsonResponse
     {
         $user = $request->user();
         if ($jobApplicationId) {
@@ -62,5 +62,39 @@ class RecruitmentEventController extends Controller
         return response()->json([
             'recruitmentEvent' => $recruitmentEvent,
         ], 201);
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        try {
+            $request->validate([
+                'date' => 'required|date',
+                'type' => 'required|string',
+            ]);
+        }
+        catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'The provided data is invalid.',
+                'errors' => $e->errors(),
+            ], 422);
+        }
+
+        $user = $request->user();
+        $recruitmentEvent = $user->recruitmentEvents()->findOrFail($id);
+        $recruitmentEvent->update($request->all());
+
+        return response()->json([
+            'recruitmentEvent' => $recruitmentEvent,
+        ]);
+    }
+
+    public function delete(Request $request, int $id): JsonResponse
+    {
+        $user = $request->user();
+        $recruitmentEvent = $user->recruitmentEvents()->findOrFail($id);
+        $recruitmentEvent->delete();
+
+        return response()->json([
+        ], 204);
     }
 }
