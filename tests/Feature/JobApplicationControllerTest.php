@@ -136,6 +136,13 @@ class JobApplicationControllerTest extends TestCase
         ])->putJson('/api/job-applications/'.$this->jobApplicationId, [
             'company_name' => 'Test Company',
             'job_title' => 'Test Job',
+            'application_date' => date('Y-m-d'),
+            'offer_url' => 'http://example.dev',
+            'offered_salary_from' => 1000,
+            'offered_salary_to' => 2000,
+            'expected_salary_from' => 3000,
+            'expected_salary_to' => 4000,
+            'notes' => 'Test notes',
         ]);
 
         $response->assertStatus(200);
