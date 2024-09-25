@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\XssSanitization;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->removeFromGroup('api', ValidateCsrfToken::class);
         $middleware->removeFromGroup('api', StartSession::class);
         $middleware->removeFromGroup('api', ShareErrorsFromSession::class);
+        $middleware->appendToGroup('api', XssSanitization::class);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

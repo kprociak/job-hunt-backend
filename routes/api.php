@@ -5,6 +5,9 @@ use App\Http\Controllers\RecruitmentEventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
+Route::get('/up', function () {
+    return response()->json(['message' => 'Up and running!']);
+});
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

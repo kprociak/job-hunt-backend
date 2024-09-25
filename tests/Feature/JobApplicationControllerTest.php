@@ -93,6 +93,42 @@ class JobApplicationControllerTest extends TestCase
         ]);
     }
 
+    public function testThatInputDataIsSanitized()
+    {
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $this->token,
+        ])->postJson('/api/job-applications', [
+            'company_name' => '<strong>Test Company</strong>',
+            'job_title' => '<span>Test Job</span>',
+            'application_date' => date('Y-m-d'),
+            'offer_url' => 'https://example.dev',
+            'offered_salary_from' => 1000,
+            'offered_salary_to' => 2000,
+            'expected_salary_from' => 3000,
+            'expected_salary_to' => 4000,
+            'notes' => 'Test notes<script>alert("XSS")</script>',
+        ]);
+
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'jobApplication',
+        ]);
+        $response->assertJson([
+            'jobApplication' => [
+                'company_name' => 'Test Company',
+                'job_title' => 'Test Job',
+                'application_date' => date('Y-m-d'),
+                'offer_url' => 'https://example.dev',
+                'offered_salary_from' => 1000,
+                'offered_salary_to' => 2000,
+                'expected_salary_from' => 3000,
+                'expected_salary_to' => 4000,
+                'notes' => 'Test notes',
+            ]
+        ]);
+    }
+
+
     public function testUpdateMethodReturnsErrorWhenNoCompanyNameProvided()
     {
         $response = $this->withHeaders([
