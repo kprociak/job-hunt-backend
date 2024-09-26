@@ -1,0 +1,26 @@
+name: Mian actions
+
+on:
+  push: 
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  deploy-to-home:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: deploy to home.pl
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        command_timeout: 30m
+        script: | 
+          cd public_html/jobhunt-api/job-hunt-backend
+          git pull
+          composer install
+          php artisan migrate
+  
